@@ -38,6 +38,10 @@ function App() {
     setTodos(newTodos);
   };
   const editTodo = (id) => {
+    // const todo = todos.find((todo)=> todo.id === id);
+    // if(todo.completed === true){
+    //   return;
+    // }
     const newTitle = prompt("Enter new title");
 
     if (newTitle !== null && newTitle !== "") {
@@ -97,9 +101,10 @@ function App() {
               </p>
             </div>
             <div className="todo-actions">
-              <button className="edit-btn" onClick={() => editTodo(todos.id)}>
+              {todos.completed === false && (<button className="edit-btn" onClick={() => editTodo(todos.id)}>
                 Edit
               </button>
+            )}
               <button
                 className="delete-btn"
                 onClick={() => deleteTodo(todos.id)}
