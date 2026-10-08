@@ -25,17 +25,33 @@ function App() {
     setTodos(newTodos);
   };
 
-  const completedCount = todos.filter((todos)=>
-    todos.completed === true).length;
+  const completedCount = todos.filter(
+    (todos) => todos.completed === true,
+  ).length;
 
-  const pendingCount = todos.filter((todos)=>
-    todos.completed === false).length;
+  const pendingCount = todos.filter(
+    (todos) => todos.completed === false,
+  ).length;
 
-  const deleteTodo = (id)=>{
-    const newTodos = todos.filter((todos)=>
-    todos.id !== id);
+  const deleteTodo = (id) => {
+    const newTodos = todos.filter((todos) => todos.id !== id);
     setTodos(newTodos);
-  }
+  };
+  const editTodo = (id) => {
+    const newTitle = prompt("Enter new title");
+
+    if (newTitle !== null && newTitle !== "") {
+      const newTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          todo.todo = newTitle;
+        }
+
+        return todo;
+      });
+
+      setTodos(newTodos);
+    }
+  };
 
   return (
     <div className="container">
@@ -64,7 +80,9 @@ function App() {
               onClick={() => toggleTodo(todos.id)}
             ></button>
             <div className="todo-content">
-              {todos.completed === true && <h3 className="line-through">{todos.todo}</h3>}
+              {todos.completed === true && (
+                <h3 className="line-through">{todos.todo}</h3>
+              )}
 
               {todos.completed === false && <h3>{todos.todo}</h3>}
 
@@ -77,7 +95,17 @@ function App() {
                   <span className="pending">Pending</span>
                 )}
               </p>
-              <button className="delete-btn" onClick={()=> deleteTodo(todos.id)}>Delete</button>
+            </div>
+            <div className="todo-actions">
+              <button className="edit-btn" onClick={() => editTodo(todos.id)}>
+                Edit
+              </button>
+              <button
+                className="delete-btn"
+                onClick={() => deleteTodo(todos.id)}
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
